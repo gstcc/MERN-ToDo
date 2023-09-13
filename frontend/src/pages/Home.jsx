@@ -1,7 +1,8 @@
 import React from 'react'
-
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 const Home = () => {
-    const [task, setTask] = useState([]);
+    const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -9,7 +10,7 @@ const Home = () => {
         axios
             .get('http://localhost:5555/task')
             .then((response) => {
-                setTask(response.data.data);
+                setTasks(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -18,7 +19,7 @@ const Home = () => {
     }, []);
 
   return (
-    <div>Home</div>
+    <div></div> //fix so iterate over everthing in tasks and display every task avaiable
   )
 }
 
