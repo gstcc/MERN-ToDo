@@ -45,7 +45,7 @@ router.get('/:id', async (request, response) => {
 //Route for update a task
 router.put('/:id', async (request, response) =>{
     try {
-        if (!request.body.title || !request.body.completed){
+        if (!request.body.title || request.body.completed == null){
             return response.status(400).send({message : 'Send all required fields'});
         }
 
