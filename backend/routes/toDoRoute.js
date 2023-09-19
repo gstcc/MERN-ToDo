@@ -6,13 +6,13 @@ const router = express.Router()
 //Add a new task to database
 router.post('', async (request, response) => {
     try {
-        if (!request.body.title || !request.body.completed){
+        console.log(request.body)
+        if (!request.body.title || request.body.completed == null){
             return response.status(400).send({message : 'Send all required fields'});
         }
 
         const newTask = {
             title: request.body.title,
-            description : (request.body.description ?  request.body.description : '' ),
             dueDate : (request.body.dueDate ? request.body.dueDate : ''),
             completed: request.body.completed
         };

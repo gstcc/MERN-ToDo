@@ -6,12 +6,8 @@ const toDoScheme = mongoose.Schema(
             type: String,
             required: true,
         },
-        description: {
-            type: String,
-            required: false,
-        },
         dueDate: {
-            type: Number,
+            type: Date,
             required: false,
         },
         completed: {
