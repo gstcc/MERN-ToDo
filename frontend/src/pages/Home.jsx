@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import HomeTable from '../components/HomeTable';
-import { GrAdd } from "react-icons/gr";
-import {MdMinimize} from 'react-icons/md'
+import HomeTable from '../components/unCompletedTasks';
 import { FcExpand, FcCollapse } from 'react-icons/fc'
+import CompletedTaskTable from '../components/CompletedTasks';
 
 const Home = () => {
   const [uncompletedTasks, setUncompletedTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [showCompleted, setShowCompleted] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     axios
       .get('http://localhost:5555/task')
       .then((response) => {
@@ -24,7 +20,6 @@ const Home = () => {
 
         setUncompletedTasks(uncompleted);
         setCompletedTasks(completed);
-        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -52,10 +47,15 @@ const Home = () => {
     }
   };
 
+  const handleAddTask = (addedTask) => {
+    const updatedUncompletedTasks = [...uncompletedTasks, addedTask];
+    setUncompletedTasks(updatedUncompletedTasks);
+  }
+
   return (
     <div className="max-w-screen-md mx-auto p-4">
-      <h1 className="text-2xl font-semibold mb-4 my-4">Uncompleted tasks</h1>
-      <HomeTable tasks={uncompletedTasks} onUpdateTask={handleUpdateTask} onDeleteTask={onDeleteTask} />
+      <h1 className="text-2xl font-semibold mb-4 my-4">Study Schedule</h1>
+      <HomeTable tasks={uncompletedTasks} onUpdateTask={handleUpdateTask} onDeleteTask={onDeleteTask} onNewTask={handleAddTask} />
 
       {completedTasks.length > 0 && (
         <div>
@@ -65,23 +65,14 @@ const Home = () => {
               className="text-gray-500 hover:text-blue-500 focus:outline-none"
               onClick={() => setShowCompleted(!showCompleted)}
             >
-              {showCompleted ? <FcExpand /> : < FcCollapse/>}
+              {showCompleted ? <FcExpand /> : < FcCollapse />}
             </button>
           </div>
           {showCompleted && (
-            <HomeTable tasks={completedTasks} onUpdateTask={handleUpdateTask} onDeleteTask={onDeleteTask} />
+            <CompletedTaskTable tasks={completedTasks} onUpdateTask={handleUpdateTask} onDeleteTask={onDeleteTask} />
           )}
         </div>
       )}
-
-      <div className="mt-4">
-        <Link to={`add/task/`}>
-          <button className="text-black py-2 px-4 rounded-md hover:bg-gray-100 focus:outline-none">
-            <GrAdd className="inline-block mr-2" />
-            Add Task
-          </button>
-        </Link>
-      </div>
     </div>
   );
 };

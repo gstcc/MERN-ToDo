@@ -7,12 +7,13 @@ const router = express.Router()
 router.post('', async (request, response) => {
     try {
         console.log(request.body)
-        if (!request.body.title || request.body.completed == null){
+        if (!request.body.title || !request.body.course || request.body.completed == null){
             return response.status(400).send({message : 'Send all required fields'});
         }
 
         const newTask = {
             title: request.body.title,
+            course: request.body.course,
             dueDate : (request.body.dueDate ? request.body.dueDate : ''),
             completed: request.body.completed
         };

@@ -6,6 +6,10 @@ const toDoScheme = mongoose.Schema(
             type: String,
             required: true,
         },
+        course: {
+            type: String,
+            required: true
+        },
         dueDate: {
             type: Date,
             required: false,
