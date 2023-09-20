@@ -19,7 +19,7 @@ This is a simple study schedule web application built using the MERN (MongoDB, E
 - Express.js
 - MongoDB (database)
 
-# Backend Installation
+## Backend Installation
 
 To set up the backend server, follow these steps:
 
@@ -64,7 +64,7 @@ The backend uses middleware for handling CORS (Cross-Origin Resource Sharing) an
 ## Database
 The backend connects to a MongoDB database specified in the .env file. Make sure to configure the mongoDBURL environment variable with your MongoDB database connection URL.
 
-# Frontend Installation
+## Frontend Installation
 ### Navigate to the project directory:
 1. cd study-schedule-app
 ### Install the project dependencies:
